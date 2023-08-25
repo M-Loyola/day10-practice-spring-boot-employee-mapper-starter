@@ -1,13 +1,18 @@
 package com.afs.restapi.service.dto;
 
-public class CompanyRequest {
+public class CompanyResponse {
+    private Long id;
     private String name;
 
-    public CompanyRequest() {
+    public CompanyResponse() {
     }
 
-    public CompanyRequest(String name) {
-        this.name = name;
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getName() {
