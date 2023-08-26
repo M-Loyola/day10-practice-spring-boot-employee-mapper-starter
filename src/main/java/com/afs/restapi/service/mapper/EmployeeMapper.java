@@ -1,21 +1,27 @@
 package com.afs.restapi.service.mapper;
 
+import com.afs.restapi.entity.Company;
 import com.afs.restapi.entity.Employee;
 import com.afs.restapi.service.dto.EmployeeRequest;
 import com.afs.restapi.service.dto.EmployeeResponse;
-import com.fasterxml.jackson.databind.util.BeanUtil;
 import org.springframework.beans.BeanUtils;
 
 public class EmployeeMapper {
-    public static Employee toEntity(EmployeeRequest employeeRequest) {
-        Employee employee = new Employee();
+
+    public EmployeeMapper() {
+    }
+
+    public static Employee toEntity(Employee employee, EmployeeRequest employeeRequest) {
+        if (employee == null) {
+            employee = new Employee();
+        }
         BeanUtils.copyProperties(employeeRequest, employee);
         return employee;
     }
 
     public static EmployeeResponse toResponse(Employee employee) {
-        EmployeeResponse employeeResponse  = new EmployeeResponse();
-        BeanUtils.copyProperties(employee,employeeResponse);
+        EmployeeResponse employeeResponse = new EmployeeResponse();
+        BeanUtils.copyProperties(employee, employeeResponse);
         return employeeResponse;
     }
 }

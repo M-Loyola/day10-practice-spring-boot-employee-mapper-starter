@@ -1,14 +1,17 @@
 package com.afs.restapi.service.dto;
 
 public class EmployeeRequest {
-    private final String name;
-    private final Integer age;
-    private final String gender;
+    private String name;
+    private Integer age;
+    private String gender;
     private Integer salary;
     private Long companyId;
 
-    public EmployeeRequest(String name, Integer age, String gender, Integer salary, Long companyId) {
+    public EmployeeRequest(){
 
+    }
+
+    public EmployeeRequest(String name, Integer age, String gender, Integer salary, Long companyId) {
         this.name = name;
         this.age = age;
         this.gender = gender;
@@ -20,12 +23,24 @@ public class EmployeeRequest {
         return name;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public Integer getAge() {
         return age;
     }
 
+    public void setAge(Integer age) {
+        this.age = age;
+    }
+
     public String getGender() {
         return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
     }
 
     public Integer getSalary() {
