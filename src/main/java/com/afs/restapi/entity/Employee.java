@@ -19,12 +19,13 @@ public class Employee {
     public Employee() {
     }
 
-    public Employee(Long id, String name, Integer age, String gender, Integer salary) {
+    public Employee(Long id, String name, Integer age, String gender, Integer salary, Long companyId) {
         this.id = id;
         this.name = name;
         this.age = age;
         this.gender = gender;
         this.salary = salary;
+        this.companyId = companyId;
     }
 
     public void setId(Long id) {
