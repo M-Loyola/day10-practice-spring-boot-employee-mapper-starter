@@ -6,6 +6,9 @@ import com.afs.restapi.service.dto.CompanyResponse;
 import org.springframework.beans.BeanUtils;
 
 public class CompanyMapper {
+    private CompanyMapper() {
+    }
+
     public static Company toEntity(Company company, CompanyRequest companyRequest) {
         company = (company == null) ? new Company() : company;
         BeanUtils.copyProperties(companyRequest, company);
