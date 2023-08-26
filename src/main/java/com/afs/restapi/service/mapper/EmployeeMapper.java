@@ -5,16 +5,20 @@ import com.afs.restapi.service.dto.EmployeeRequest;
 import com.afs.restapi.service.dto.EmployeeResponse;
 import org.springframework.beans.BeanUtils;
 
+import java.util.Objects;
+
 public class EmployeeMapper {
     public EmployeeMapper() {
     }
 
     public static Employee toEntity(Employee employee, EmployeeRequest employeeRequest) {
-        if (employee == null) {
-            employee = new Employee();
-        }
+        employee = initializeEmployeeIfNull(employee);
         BeanUtils.copyProperties(employeeRequest, employee);
         return employee;
+    }
+
+    private static Employee initializeEmployeeIfNull(Employee employee) {
+        return Objects.isNull(employee) ? new Employee() : employee;
     }
 
     public static EmployeeResponse toResponse(Employee employee) {
