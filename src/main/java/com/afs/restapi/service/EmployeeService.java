@@ -11,6 +11,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
@@ -36,15 +37,18 @@ public class EmployeeService {
     public EmployeeResponse update(Long id, EmployeeRequest employeeRequest) {
         Employee toBeUpdatedEmployee = employeeRepository.findById(id)
                 .orElseThrow(EmployeeNotFoundException::new);
-        if (employeeRequest.getSalary() != null) {
+        checkIfSalaryAndAgeIsNull(employeeRequest, toBeUpdatedEmployee);
+        EmployeeMapper.toEntity(toBeUpdatedEmployee, employeeRequest);
+        return EmployeeMapper.toResponse(employeeRepository.save(toBeUpdatedEmployee));
+    }
+
+    private static void checkIfSalaryAndAgeIsNull(EmployeeRequest employeeRequest, Employee toBeUpdatedEmployee) {
+        if (Objects.isNull(employeeRequest.getSalary())) {
             toBeUpdatedEmployee.setSalary(employeeRequest.getSalary());
         }
-        if (employeeRequest.getAge() != null) {
+        if (Objects.isNull(employeeRequest.getAge())) {
             toBeUpdatedEmployee.setAge(employeeRequest.getAge());
         }
-        Employee employee = EmployeeMapper.toEntity(toBeUpdatedEmployee, employeeRequest);
-
-        return EmployeeMapper.toResponse(employeeRepository.save(toBeUpdatedEmployee));
     }
 
     public List<EmployeeResponse> findAllByGender(String gender) {
