@@ -46,7 +46,7 @@ public class CompanyService {
     }
 
     public CompanyResponse create(CompanyRequest companyRequest) {
-        Company company = CompanyMapper.toEntity(companyRequest);
+        Company company = CompanyMapper.toEntity(null, companyRequest);
         return CompanyMapper.toResponse(companyRepository.save(company));
     }
 

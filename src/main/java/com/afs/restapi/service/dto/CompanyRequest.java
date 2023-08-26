@@ -1,13 +1,21 @@
 package com.afs.restapi.service.dto;
 
+import com.afs.restapi.entity.Employee;
+
+import java.util.List;
+
 public class CompanyRequest {
     private String name;
 
-    public CompanyRequest() {
+    private List<Employee> employees;
+
+    public CompanyRequest(){
+
     }
 
-    public CompanyRequest(String name) {
+    public CompanyRequest(String name, List<Employee> employees) {
         this.name = name;
+        this.employees = employees;
     }
 
     public String getName() {
@@ -16,5 +24,13 @@ public class CompanyRequest {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public List<Employee> getEmployees() {
+        return employees;
+    }
+
+    public void setEmployees(List<Employee> employees) {
+        this.employees = employees;
     }
 }

@@ -95,7 +95,8 @@ class CompanyApiTest {
 
     @Test
     void should_create_company() throws Exception {
-        CompanyRequest companyRequest = new CompanyRequest("JavaCom");
+        CompanyRequest companyRequest = new CompanyRequest("JavaCom", null);
+
         ObjectMapper objectMapper = new ObjectMapper();
         String companyRequestJSON = objectMapper.writeValueAsString(companyRequest);
         mockMvc.perform(post("/companies")
@@ -103,7 +104,8 @@ class CompanyApiTest {
                         .content(companyRequestJSON))
                 .andExpect(MockMvcResultMatchers.status().is(201))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(notNullValue()))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.name").value(companyRequest.getName()));
+                .andExpect(MockMvcResultMatchers.jsonPath("$.name").value(companyRequest.getName()))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.employeesCount").exists());
     }
 
     @Test
