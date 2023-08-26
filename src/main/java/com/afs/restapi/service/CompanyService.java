@@ -57,7 +57,7 @@ public class CompanyService {
 
     public List<EmployeeResponse> findEmployeesByCompanyId(Long id) {
         return employeeRepository.findAllByCompanyId(id).stream()
-                .map(employee -> EmployeeMapper.toResponse(employee))
+                .map(EmployeeMapper::toResponse)
                 .collect(Collectors.toList());
     }
 
