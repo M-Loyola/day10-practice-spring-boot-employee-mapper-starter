@@ -14,7 +14,6 @@ public class CompanyResponse {
     private List<Employee> employees;
 
     public CompanyResponse() {
-
     }
 
     public Long getId() {
