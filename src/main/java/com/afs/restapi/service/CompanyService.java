@@ -36,8 +36,9 @@ public class CompanyService {
         return CompanyMapper.toResponse(company);
     }
 
-    public List<Company> findByPage(Integer pageNumber, Integer pageSize) {
-        return companyRepository.findAll(PageRequest.of(pageNumber - 1, pageSize)).stream()
+    public List<CompanyResponse> findByPage(Integer pageNumber, Integer pageSize) {
+        return companyRepository.findAll(PageRequest.of(pageNumber-1, pageSize)).stream()
+                .map(CompanyMapper::toResponse)
                 .collect(Collectors.toList());
     }
 
