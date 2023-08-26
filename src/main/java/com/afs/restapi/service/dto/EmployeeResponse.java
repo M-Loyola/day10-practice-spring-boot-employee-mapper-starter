@@ -8,7 +8,6 @@ public class EmployeeResponse {
     private Integer salary;
 
     public EmployeeResponse() {
-
     }
 
     public String getName() {
