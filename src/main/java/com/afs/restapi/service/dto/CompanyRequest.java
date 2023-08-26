@@ -10,7 +10,6 @@ public class CompanyRequest {
     private List<Employee> employees;
 
     public CompanyRequest() {
-
     }
 
     public CompanyRequest(String name, List<Employee> employees) {
