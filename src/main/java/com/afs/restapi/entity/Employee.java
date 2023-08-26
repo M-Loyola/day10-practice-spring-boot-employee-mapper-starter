@@ -80,9 +80,14 @@ public class Employee {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof Employee)) return false;
         Employee employee = (Employee) o;
-        return Objects.equals(id, employee.id) && Objects.equals(name, employee.name) && Objects.equals(age, employee.age) && Objects.equals(gender, employee.gender) && Objects.equals(salary, employee.salary) && Objects.equals(companyId, employee.companyId);
+        return Objects.equals(id, employee.id)
+                && Objects.equals(name, employee.name)
+                && Objects.equals(age, employee.age)
+                && Objects.equals(gender, employee.gender)
+                && Objects.equals(salary, employee.salary)
+                && Objects.equals(companyId, employee.companyId);
     }
 
     @Override
