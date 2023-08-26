@@ -1,8 +1,8 @@
 package com.afs.restapi;
 
-import com.afs.restapi.service.dto.EmployeeRequest;
 import com.afs.restapi.entity.Employee;
 import com.afs.restapi.repository.EmployeeRepository;
+import com.afs.restapi.service.dto.EmployeeRequest;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -23,7 +23,6 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 @SpringBootTest
 @AutoConfigureMockMvc
 class EmployeeApiTest {
-
     @Autowired
     private MockMvc mockMvc;
     @Autowired
@@ -33,6 +32,7 @@ class EmployeeApiTest {
     void setUp() {
         employeeRepository.deleteAll();
     }
+
     @Test
     void should_find_employees() throws Exception {
         EmployeeRequest employeeRequest = new EmployeeRequest("Alice", 18, "Female", 2000, null);
@@ -53,6 +53,7 @@ class EmployeeApiTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].gender").value(employee.getGender()))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].salary").value(employee.getSalary()));
     }
+
     @Test
     void should_find_employee_by_gender() throws Exception {
         EmployeeRequest employeeRequest1 = new EmployeeRequest("Alice", 18, "Female", 2000, null);
@@ -63,7 +64,6 @@ class EmployeeApiTest {
                 employeeRequest1.getSalary(),
                 null));
         employeeRepository.save(alice);
-
 
         EmployeeRequest employeeRequest2 = new EmployeeRequest("Susan", 18, "Female", 2000, null);
         Employee susan = employeeRepository.save(new Employee(null,
@@ -108,7 +108,7 @@ class EmployeeApiTest {
 
     @Test
     void should_update_employee_age_and_salary() throws Exception {
-        Employee previousEmployee = employeeRepository.save(new Employee(null,"Json", 22, "Male", 1000, null));
+        Employee previousEmployee = employeeRepository.save(new Employee(null, "Json", 22, "Male", 1000, null));
 
         EmployeeRequest employeeUpdateRequest = new EmployeeRequest("lisi", 24, "Female", 2000, null);
         ObjectMapper objectMapper = new ObjectMapper();
@@ -195,10 +195,8 @@ class EmployeeApiTest {
                 employeeRequest1.getSalary(),
                 null));
         employeeRepository.save(alice);
-
         mockMvc.perform(delete("/employees/{id}", alice.getId()))
                 .andExpect(MockMvcResultMatchers.status().is(204));
-
         assertTrue(employeeRepository.findById(1L).isEmpty());
     }
 }
