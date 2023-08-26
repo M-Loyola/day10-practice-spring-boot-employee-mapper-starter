@@ -34,7 +34,7 @@ public class CompanyService {
     }
 
     public List<Company> findByPage(Integer pageNumber, Integer pageSize) {
-        return companyRepository.findAll(PageRequest.of(pageNumber-1, pageSize)).stream()
+        return companyRepository.findAll(PageRequest.of(pageNumber - 1, pageSize)).stream()
                 .collect(Collectors.toList());
     }
 
