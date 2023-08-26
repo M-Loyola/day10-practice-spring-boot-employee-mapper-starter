@@ -41,7 +41,7 @@ class CompanyApiTest {
 
     @Test
     void should_find_companies() throws Exception {
-        CompanyRequest companyRequest = new CompanyRequest("OOCL", null);
+        CompanyRequest companyRequest = new CompanyRequest("JavaCom", null);
         Company company = companyRepository.save(new Company(null, companyRequest.getName()));
         companyRepository.save(company);
         mockMvc.perform(get("/companies"))
@@ -53,7 +53,7 @@ class CompanyApiTest {
 
     @Test
     void should_find_company_by_id() throws Exception {
-        CompanyRequest companyRequest = new CompanyRequest("OOCL", null);
+        CompanyRequest companyRequest = new CompanyRequest("JavaCom", null);
         Company company = new Company(null, companyRequest.getName());
         Company createdCompany = companyRepository.save(company);
 
@@ -78,7 +78,7 @@ class CompanyApiTest {
 
     @Test
     void should_update_company_name() throws Exception {
-        Company previousCompany = companyRepository.save(new Company(null, "OOCL"));
+        Company previousCompany = companyRepository.save(new Company(null, "JavaCom"));
         CompanyRequest companyRequest = new CompanyRequest("Thoughtworks", null);
         Company company = new Company(previousCompany.getId(), companyRequest.getName());
         companyRepository.save(company);
@@ -95,7 +95,7 @@ class CompanyApiTest {
 
     @Test
     void should_delete_company_name() throws Exception {
-        CompanyRequest companyRequest = new CompanyRequest("OOCL", null);
+        CompanyRequest companyRequest = new CompanyRequest("JavaCom", null);
         Company company = companyRepository.save(new Company(null, companyRequest.getName()));
         companyRepository.save(company);
 
@@ -106,7 +106,7 @@ class CompanyApiTest {
 
     @Test
     void should_create_company() throws Exception {
-        CompanyRequest companyRequest = new CompanyRequest("OOCL", null);
+        CompanyRequest companyRequest = new CompanyRequest("JavaCom", null);
         ObjectMapper objectMapper = new ObjectMapper();
         String companyRequestJSON = objectMapper.writeValueAsString(companyRequest);
         mockMvc.perform(post("/companies")
@@ -120,7 +120,7 @@ class CompanyApiTest {
 
     @Test
     void should_find_companies_by_page() throws Exception {
-        CompanyRequest companyRequest1 = new CompanyRequest("OOCL", null);
+        CompanyRequest companyRequest1 = new CompanyRequest("JavaCom", null);
         CompanyRequest companyRequest2 = new CompanyRequest("Thoughtworks", null);
 
         Company firstCompany = companyRepository.save(new Company(null, companyRequest1.getName()));
@@ -141,7 +141,7 @@ class CompanyApiTest {
 
     @Test
     void should_find_employees_by_companies() throws Exception {
-        CompanyRequest companyRequest = new CompanyRequest("OOCL", null);
+        CompanyRequest companyRequest = new CompanyRequest("JavaCom", null);
         Company createdCompany = companyRepository.save(new Company(null, companyRequest.getName()));
         companyRepository.save(createdCompany);
 
