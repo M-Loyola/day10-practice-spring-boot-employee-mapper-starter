@@ -8,7 +8,6 @@ public class EmployeeRequest {
     private Long companyId;
 
     public EmployeeRequest() {
-
     }
 
     public EmployeeRequest(String name, Integer age, String gender, Integer salary, Long companyId) {
