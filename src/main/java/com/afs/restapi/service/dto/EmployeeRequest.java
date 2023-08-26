@@ -7,7 +7,7 @@ public class EmployeeRequest {
     private Integer salary;
     private Long companyId;
 
-    public EmployeeRequest(){
+    public EmployeeRequest() {
 
     }
 

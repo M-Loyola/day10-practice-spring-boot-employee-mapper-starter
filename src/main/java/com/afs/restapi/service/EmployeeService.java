@@ -1,11 +1,10 @@
 package com.afs.restapi.service;
 
-import com.afs.restapi.service.dto.EmployeeRequest;
 import com.afs.restapi.entity.Employee;
 import com.afs.restapi.exception.EmployeeNotFoundException;
 import com.afs.restapi.repository.EmployeeRepository;
+import com.afs.restapi.service.dto.EmployeeRequest;
 import com.afs.restapi.service.dto.EmployeeResponse;
-import com.afs.restapi.service.mapper.CompanyMapper;
 import com.afs.restapi.service.mapper.EmployeeMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -31,7 +30,6 @@ public class EmployeeService {
     public EmployeeResponse findById(Long id) {
         Employee employee = employeeRepository.findById(id)
                 .orElseThrow(EmployeeNotFoundException::new);
-
         return EmployeeMapper.toResponse(employee);
     }
 
@@ -44,7 +42,6 @@ public class EmployeeService {
         if (employeeRequest.getAge() != null) {
             toBeUpdatedEmployee.setAge(employeeRequest.getAge());
         }
-
         Employee employee = EmployeeMapper.toEntity(toBeUpdatedEmployee, employeeRequest);
 
         return EmployeeMapper.toResponse(employeeRepository.save(toBeUpdatedEmployee));
@@ -62,8 +59,7 @@ public class EmployeeService {
     }
 
     public List<EmployeeResponse> findByPage(Integer pageNumber, Integer pageSize) {
-        Page<Employee> employeesInThePage = employeeRepository.findAll(PageRequest.of(pageNumber-1, pageSize));
-
+        Page<Employee> employeesInThePage = employeeRepository.findAll(PageRequest.of(pageNumber - 1, pageSize));
         return employeesInThePage.stream()
                 .map(EmployeeMapper::toResponse)
                 .collect(Collectors.toList());

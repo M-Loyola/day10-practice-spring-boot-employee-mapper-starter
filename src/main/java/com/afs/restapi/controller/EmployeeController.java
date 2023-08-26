@@ -1,6 +1,5 @@
 package com.afs.restapi.controller;
 
-import com.afs.restapi.entity.Employee;
 import com.afs.restapi.service.EmployeeService;
 import com.afs.restapi.service.dto.EmployeeRequest;
 import com.afs.restapi.service.dto.EmployeeResponse;
@@ -12,7 +11,6 @@ import java.util.List;
 @RestController
 @RequestMapping("/employees")
 public class EmployeeController {
-
     private final EmployeeService employeeService;
 
     public EmployeeController(EmployeeService employeeService) {
