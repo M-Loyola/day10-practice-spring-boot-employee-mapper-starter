@@ -1,9 +1,12 @@
 package com.afs.restapi.service.mapper;
 
 import com.afs.restapi.entity.Company;
+import com.afs.restapi.entity.Employee;
 import com.afs.restapi.service.dto.CompanyRequest;
 import com.afs.restapi.service.dto.CompanyResponse;
 import org.springframework.beans.BeanUtils;
+
+import java.util.List;
 
 public class CompanyMapper {
     public static Company toEntity(Company company, CompanyRequest companyRequest) {
@@ -17,9 +20,12 @@ public class CompanyMapper {
     public static CompanyResponse toResponse(Company company) {
         CompanyResponse companyResponse = new CompanyResponse();
         BeanUtils.copyProperties(company, companyResponse);
-
-        var employees = company.getEmployees();
-        companyResponse.setEmployeesCount((employees == null) ? 0 : employees.size());
+        companyResponse.setEmployeesCount(getEmployeesCount(company));
         return companyResponse;
+    }
+
+    private static int getEmployeesCount(Company company) {
+        List<Employee> employees = company.getEmployees();
+        return (employees == null) ? 0 : employees.size();
     }
 }
