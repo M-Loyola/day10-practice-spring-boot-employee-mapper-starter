@@ -1,6 +1,7 @@
 package com.afs.restapi.entity;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -10,8 +11,8 @@ public class Company {
     private Long id;
     private String name;
     @OneToMany(orphanRemoval = true)
-    @JoinColumn( name = "companyId")
-    private List<Employee> employees;
+    @JoinColumn(name = "companyId")
+    private List<Employee> employees = new ArrayList<>();
 
     public Company() {
     }
@@ -42,6 +43,5 @@ public class Company {
     }
 
     public void setEmployees(List<Employee> employees) {
-        this.employees = employees;
     }
 }

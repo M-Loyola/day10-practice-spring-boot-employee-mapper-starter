@@ -12,9 +12,11 @@ public class CompanyResponse {
     private Integer employeesCount;
 
     private List<Employee> employees;
-    public CompanyResponse(){
+
+    public CompanyResponse() {
 
     }
+
     public Long getId() {
         return id;
     }

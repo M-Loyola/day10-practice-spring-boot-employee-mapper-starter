@@ -9,6 +9,10 @@ public class CompanyRequest {
 
     private List<Employee> employees;
 
+    public CompanyRequest() {
+
+    }
+
     public CompanyRequest(String name, List<Employee> employees) {
         this.name = name;
         this.employees = employees;
@@ -26,8 +30,7 @@ public class CompanyRequest {
         return employees;
     }
 
-    public CompanyRequest setEmployees(List<Employee> employees) {
+    public void setEmployees(List<Employee> employees) {
         this.employees = employees;
-        return this;
     }
 }

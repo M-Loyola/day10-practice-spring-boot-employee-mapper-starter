@@ -1,7 +1,6 @@
 package com.afs.restapi.service;
 
 import com.afs.restapi.entity.Company;
-import com.afs.restapi.entity.Employee;
 import com.afs.restapi.exception.CompanyNotFoundException;
 import com.afs.restapi.repository.CompanyRepository;
 import com.afs.restapi.repository.EmployeeRepository;
@@ -39,7 +38,7 @@ public class CompanyService {
     }
 
     public List<CompanyResponse> findByPage(Integer pageNumber, Integer pageSize) {
-        return companyRepository.findAll(PageRequest.of(pageNumber-1, pageSize)).stream()
+        return companyRepository.findAll(PageRequest.of(pageNumber - 1, pageSize)).stream()
                 .map(CompanyMapper::toResponse)
                 .collect(Collectors.toList());
     }

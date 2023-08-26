@@ -41,7 +41,7 @@ class CompanyApiTest {
 
     @Test
     void should_find_companies() throws Exception {
-        CompanyRequest companyRequest = new CompanyRequest("JavaCom", null);
+        CompanyRequest companyRequest = new CompanyRequest("OOCL", null);
         Company company = companyRepository.save(new Company(null, companyRequest.getName()));
         companyRepository.save(company);
         mockMvc.perform(get("/companies"))
@@ -53,7 +53,7 @@ class CompanyApiTest {
 
     @Test
     void should_find_company_by_id() throws Exception {
-        CompanyRequest companyRequest = new CompanyRequest("JavaCom", null);
+        CompanyRequest companyRequest = new CompanyRequest("OOCL", null);
         Company company = new Company(null, companyRequest.getName());
         Company createdCompany = companyRepository.save(company);
 
@@ -64,7 +64,6 @@ class CompanyApiTest {
                 employeeRequest.getGender(),
                 employeeRequest.getSalary(),
                 createdCompany.getId()));
-
         mockMvc.perform(get("/companies/{id}", createdCompany.getId()))
                 .andExpect(MockMvcResultMatchers.status().is(200))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(createdCompany.getId()))
@@ -79,20 +78,19 @@ class CompanyApiTest {
 
     @Test
     void should_update_company_name() throws Exception {
-        Company previousCompany = companyRepository.save(new Company(null, "Facebook"));
-        Company companyUpdateRequest = new Company(previousCompany.getId(), "Meta");
-        ObjectMapper objectMapper = new ObjectMapper();
-        String updatedEmployeeJson = objectMapper.writeValueAsString(companyUpdateRequest);
+        Company previousCompany = companyRepository.save(new Company(null, "OOCL"));
+        CompanyRequest companyRequest = new CompanyRequest("Thoughtworks", null);
+        Company company = new Company(previousCompany.getId(), companyRequest.getName());
+        companyRepository.save(company);
         mockMvc.perform(put("/companies/{id}", previousCompany.getId())
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(updatedEmployeeJson))
+                        .content(new ObjectMapper().writeValueAsString(companyRequest)))
                 .andExpect(MockMvcResultMatchers.status().is(204));
-
         Optional<Company> optionalCompany = companyRepository.findById(previousCompany.getId());
         assertTrue(optionalCompany.isPresent());
         Company updatedCompany = optionalCompany.get();
         Assertions.assertEquals(previousCompany.getId(), updatedCompany.getId());
-        Assertions.assertEquals(companyUpdateRequest.getName(), updatedCompany.getName());
+        Assertions.assertEquals(companyRequest.getName(), updatedCompany.getName());
     }
 
     @Test
@@ -108,7 +106,7 @@ class CompanyApiTest {
 
     @Test
     void should_create_company() throws Exception {
-        CompanyRequest companyRequest = new CompanyRequest("JavaCom", null);
+        CompanyRequest companyRequest = new CompanyRequest("OOCL", null);
         ObjectMapper objectMapper = new ObjectMapper();
         String companyRequestJSON = objectMapper.writeValueAsString(companyRequest);
         mockMvc.perform(post("/companies")
@@ -127,7 +125,6 @@ class CompanyApiTest {
 
         Company firstCompany = companyRepository.save(new Company(null, companyRequest1.getName()));
         Company secondCompany = companyRepository.save(new Company(null, companyRequest2.getName()));
-
         companyRepository.save(firstCompany);
         companyRepository.save(secondCompany);
 
@@ -165,34 +162,5 @@ class CompanyApiTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].age").value(createdEmployee.getAge()))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].gender").value(createdEmployee.getGender()))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].salary").value(createdEmployee.getSalary()));
-    }
-
-    private static Employee getEmployee(Company company) {
-        Employee employee = new Employee();
-        employee.setName("Bob");
-        employee.setAge(22);
-        employee.setGender("Male");
-        employee.setSalary(10000);
-        employee.setCompanyId(company.getId());
-        return employee;
-    }
-
-
-    private static Company getCompanyOOCL() {
-        Company company = new Company();
-        company.setName("OOCL");
-        return company;
-    }
-
-    private static Company getCompanyThoughtWorks() {
-        Company company = new Company();
-        company.setName("Thoughtworks");
-        return company;
-    }
-
-    private static Company getCompanyGoogle() {
-        Company company = new Company();
-        company.setName("Google");
-        return company;
     }
 }
